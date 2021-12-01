@@ -4,26 +4,25 @@ import styled from "styled-components";
 
 import PodcastBox from '../components/PodcastBox';
 
+const ListWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+`;
+const ListItem = styled.div`
+  flex-direction: column;
+  flex: 1 0 21%;
+  max-width: 25%;
+  justify-content: stretch;
+`;
+
 interface ListViewProps {
   podcasts: any[];
 }
 
 function ListView (props: ListViewProps) {
   const { podcasts } = props;
-
-  const ListWrapper = styled.div`
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    width: 100%;
-  `
-  const ListItem = styled.div`
-    display: flex;
-    flex-direction: column;
-    flex: 1 0 21%;
-    max-width: 25%;
-    justify-content: stretch;
-  `
 
   return (
     <>
@@ -32,7 +31,7 @@ function ListView (props: ListViewProps) {
           {podcasts.map( (item) => {
 
             return (
-              <ListItem>
+              <ListItem key={item.id.attributes['im:id']}>
                 <Link to={`/podcast/${item.id.attributes['im:id']}`}>
                   <PodcastBox
                     title={item['im:name'].label}

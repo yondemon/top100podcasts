@@ -1,7 +1,51 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from "styled-components";
 
 import { beautifyDate, millisecondsToTime } from '../utils/time';
+
+
+const Table = styled.table`
+  border-collapse: collapse;
+  margin: 0;
+`;
+const TableHead = styled.tr`
+  font-size: 0.9rem;
+  font-weight: bold;
+  border-bottom: 2px solid #BBB;
+  text-align: left;
+  & th {
+    padding: 0.5rem;
+    height: 1.5rem;
+    text-align: left;
+  }
+`;
+const TableRow = styled.tr`
+  font-size: 0.8rem;
+  border-bottom: 1px solid #CCC;
+  &:hover {
+    background-color: #DDD;
+  }
+  & td {
+    padding: 0.5rem;
+    height: 1.5rem;
+  }
+  &:nth-child(even) {
+    background-color: #EEE;
+    &:hover {
+      background-color: #DDD;
+    }
+  }
+`;
+const TableCellTitle = styled.td`
+  text-align: left;
+`;
+const TableCellDate = styled.td`
+  text-align: right;
+`;
+const TableCellDuration = styled.td`
+  text-align: right;
+`;
 
 interface EpisodesTableProps {
   episodes: any[];
@@ -9,34 +53,6 @@ interface EpisodesTableProps {
 
 function EpisodesTable (props: EpisodesTableProps) {
   const { episodes } = props;
-
-  const Table = styled.table`
-    border-collapse: collapse;
-    margin: 1rem 0 0;
-  `
-  const TableHead = styled.tr`
-    font-size: 1rem;
-    font-weight: bold;
-    border-bottom: 2px solid #BBB;
-    text-align: left;
-  `
-  const TableRow = styled.tr`
-    font-size: 0.8rem;
-    border-bottom: 1px solid #CCC;
-    & td {
-      padding: 0.2rem;
-      height: 2rem;
-    }
-    &:nth-child(even) {
-      background-color: #EEE;
-    }
-  `
-  const TableCellDate = styled.td`
-    text-align: right;
-  `
-  const TableCellDuration = styled.td`
-    text-align: right;
-  `
 
   return (
     <Table>
@@ -51,7 +67,9 @@ function EpisodesTable (props: EpisodesTableProps) {
         { episodes
             .map((episode: any) => (
               <TableRow key={episode.trackId}>
-                <td>{episode.trackName}</td>
+                <TableCellTitle>
+                  <Link to={`episode/${episode.trackId}`}>{episode.trackName}</Link>
+                </TableCellTitle>
                 <TableCellDate>{ beautifyDate(episode.releaseDate) }</TableCellDate>
                 <TableCellDuration>{ millisecondsToTime(episode.trackTimeMillis) }</TableCellDuration>
               </TableRow>

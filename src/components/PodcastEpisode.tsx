@@ -1,0 +1,60 @@
+import React, { useEffect, useState } from 'react';
+import { useParams } from "react-router-dom";
+import styled from 'styled-components';
+
+
+const Box = styled.div`
+  border: 1px solid #eee;
+  box-shadow: 2px 2px 6px 2px #eee;
+  margin: 40px 10px 10px;
+  padding: 1rem;
+  text-align:left;
+`;
+const Title = styled.h1`
+  font-size: 1.2rem;
+`;
+const Description = styled.div`
+  font-size: 0.9rem;
+  font-style: italic;
+  white-space: pre-wrap;
+`;
+const Player = styled.audio`
+  margin: 1.5rem 0 0;
+  width: 100%;
+`;
+
+interface PodcastEpisodeProps {
+  episodes: any[];
+}
+
+function PodcastEpisode (props: PodcastEpisodeProps) {
+  const { episodes } = props;
+  const { episodeId } = useParams();
+  const [episode, setEpisode] = useState<any>(undefined);
+
+  useEffect(() => {
+    if( episodeId !== undefined && episodes !== undefined){
+      setEpisode(episodes.find((item) => {
+        return episodeId === item.trackId.toString();
+      }));
+    } else {
+      setEpisode(undefined);
+    }
+  }, [episodes, episodeId]);
+
+  return (
+    <Box>
+      {episode && (
+        <>
+          <Title>{episode.trackName}</Title>
+          <Description>
+            <div dangerouslySetInnerHTML={{__html: episode.description }} />
+          </Description>
+          <Player src={episode.episodeUrl} controls />
+        </>
+      )}
+    </Box>
+  )
+}
+
+export default PodcastEpisode;

@@ -1,10 +1,34 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from "react-router-dom";
+import { Route, Routes, useParams } from "react-router-dom";
 import styled from 'styled-components';
 
 import ITunesService from '../services/ITunesService';
-import PodcastBox from '../components/PodcastBox';
+import PodcastInfo from '../components/PodcastInfo';
 import EpisodesTable from '../components/EpisodesTable';
+import PodcastEpisode from '../components/PodcastEpisode';
+
+const Layout = styled.div`
+  display:flex;
+  & > div:nth-child(1) {
+    flex-direction: column;
+    flex: 1 0 25%;
+    max-width: 25%;
+    justify-content: stretch;  
+  }
+  & > div:nth-child(2) {
+    flex-direction: column;
+    flex: 1 0 75%;
+    max-width: 75%;
+    justify-content: stretch;  
+  }    
+`;
+const Box = styled.div`
+  border: 1px solid #eee;
+  box-shadow: 2px 2px 6px 2px #eee;
+  margin: 40px 10px 10px;
+  padding: 1rem;
+  text-align:center;
+`;
 
 function PodcastView () {
   const { podcastId } = useParams();
@@ -12,10 +36,6 @@ function PodcastView () {
   const [podcast, setPodcast] = useState<any>(undefined);
   const [count, setCount] = useState<any>(undefined);
   const [podcastEpisodes, setPodcastEpisodes] = useState<any>(undefined);
-
-  const Layout = styled.div`
-    display:flex;
-  `
 
   useEffect(() => {
     const fetchPodcast = async () => {
@@ -31,8 +51,7 @@ function PodcastView () {
         setPodcast(epidodesResults.find(((episode: any) => episode.kind === 'podcast')));
 
       }
-    };
-  
+    };  
     fetchPodcast();
   }, [podcastId]);
 
@@ -40,23 +59,34 @@ function PodcastView () {
     <Layout>
       <div>
         {podcast && (
-          <PodcastBox
+          <PodcastInfo
             title={podcast['collectionName']}
-            img={podcast['artworkUrl60']}
-            author={podcast['artistName']} />
+            img={podcast['artworkUrl100']}
+            author={podcast['artistName']}
+            description={podcast['artistName']} />
         )}
       </div>
+
       <div>
-        <div>
-          {podcastEpisodes && (
-            <>Episodes: {count}</>
-          )}
-        </div>
-        <div>
-          {podcastEpisodes && (
-            <EpisodesTable episodes={podcastEpisodes} />
-          )}
-        </div>
+        <Routes>
+          <Route path="" element={(
+            <>
+              <Box>
+                {podcastEpisodes && (
+                  <>Episodes: {count}</>
+                )}
+              </Box>
+              <Box>
+                {podcastEpisodes && (
+                  <EpisodesTable episodes={podcastEpisodes} />
+                )}
+              </Box>
+            </>
+          )} />
+          <Route path="episode/:episodeId" element={(
+              <PodcastEpisode episodes={podcastEpisodes} />
+            )} />
+          </Routes>
       </div>
     </Layout>
   )
