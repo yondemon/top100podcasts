@@ -6,7 +6,7 @@ import styled from 'styled-components';
 const Box = styled.div`
   border: 1px solid #eee;
   box-shadow: 2px 2px 6px 2px #eee;
-  margin: 40px 10px 10px;
+  margin: 20px 10px 10px;
   padding: 1rem;
   text-align:left;
 `;

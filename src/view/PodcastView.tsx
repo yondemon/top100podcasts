@@ -59,9 +59,8 @@ function PodcastView (props: PodcastViewProps) {
         setCount(result.data.resultCount);
         setPodcastEpisodes(epidodesResults.filter(
           (episode: any) => episode.kind === 'podcast-episode')
-        );     
+        );
         setPodcast(epidodesResults.find(((episode: any) => episode.kind === 'podcast')));
-
       }
     };  
     fetchPodcast();

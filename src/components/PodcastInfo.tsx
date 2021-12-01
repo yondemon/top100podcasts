@@ -8,7 +8,6 @@ const Box = styled.div`
   margin: 20px 10px 10px;
   padding: 1rem;
   text-align:center;
-  height: 100%;
 `;
 const Image = styled.img`
   margin: 0 auto 0;
@@ -36,8 +35,16 @@ const DescriptionBlock = styled.div`
   margin: 0.5rem 0;
   padding: 0.5rem 0;
   border-top: 1px solid #CCC;
+  text-align: left;
 `;
-
+const DescriptionTitle = styled.h3`
+  margin: 0.5rem 0;
+  font-size: 0.8rem;
+`;
+const Description = styled.div`
+  font-size: 0.8rem;
+  font-style: italic;
+`;
 interface PodcastInfoProps {
   img: string;
   title: string;
@@ -57,8 +64,8 @@ function PodcastInfo(props: PodcastInfoProps) {
         </TitleBlock>
       </Link>
       <DescriptionBlock>
-        Description:
-        {props.description}
+        <DescriptionTitle>Description:</DescriptionTitle>
+        <Description>{props.description}</Description>
       </DescriptionBlock>
     </Box>
   );
