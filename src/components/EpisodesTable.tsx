@@ -8,6 +8,7 @@ import { beautifyDate, millisecondsToTime } from '../utils/time';
 const Table = styled.table`
   border-collapse: collapse;
   margin: 0;
+  width: 100%;
 `;
 const TableHead = styled.tr`
   font-size: 0.9rem;
@@ -42,9 +43,11 @@ const TableCellTitle = styled.td`
 `;
 const TableCellDate = styled.td`
   text-align: right;
+  width: 4.5rem;
 `;
 const TableCellDuration = styled.td`
   text-align: right;
+  width: 4.5rem;
 `;
 
 interface EpisodesTableProps {
