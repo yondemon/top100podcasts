@@ -44,6 +44,8 @@ const DescriptionTitle = styled.h3`
 const Description = styled.div`
   font-size: 0.8rem;
   font-style: italic;
+  overflow: hidden;
+  word-break: break-word;
 `;
 interface PodcastInfoProps {
   img: string;

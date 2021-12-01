@@ -36,14 +36,16 @@ const Count = styled.h2`
 `;
 
 interface PodcastViewProps {
+  podcasts: any[];
   setLoading: (loading: boolean) => void;
 }
 
 function PodcastView (props: PodcastViewProps) {
   const { podcastId } = useParams();
-  const { setLoading } = props;
+  const { podcasts, setLoading } = props;
 
   const [podcast, setPodcast] = useState<any>(undefined);
+  const [description, setDescription] = useState<any>(undefined);
   const [count, setCount] = useState<any>(undefined);
   const [podcastEpisodes, setPodcastEpisodes] = useState<any>(undefined);
 
@@ -61,10 +63,19 @@ function PodcastView (props: PodcastViewProps) {
           (episode: any) => episode.kind === 'podcast-episode')
         );
         setPodcast(epidodesResults.find(((episode: any) => episode.kind === 'podcast')));
+
+        const podcastFromFeed = podcasts.find( (pod) => pod.id.attributes['im:id'] === podcastId);
+        if( podcastFromFeed !== undefined){
+          console.log(podcastFromFeed);
+          setDescription(podcastFromFeed.summary.label);
+        } else {
+          setDescription(undefined);
+        }
+
       }
     };  
     fetchPodcast();
-  }, [podcastId, setLoading]);
+  }, [podcastId, podcasts, setLoading]);
 
   return (
     <Layout>
@@ -74,7 +85,7 @@ function PodcastView (props: PodcastViewProps) {
             title={podcast['collectionName']}
             img={podcast['artworkUrl100']}
             author={podcast['artistName']}
-            description={podcast['artistName']} />
+            description={description} />
         )}
       </div>
 

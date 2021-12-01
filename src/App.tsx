@@ -45,7 +45,7 @@ function App() {
         <div>
           <Routes>
             <Route path="/" element={<ListView podcasts={podcasts} />} />
-            <Route path="/podcast/:podcastId/*" element={<PodcastView setLoading={setLoading} />} />
+            <Route path="/podcast/:podcastId/*" element={<PodcastView podcasts={podcasts} setLoading={setLoading} />} />
           </Routes>
         </div>
       </div>
