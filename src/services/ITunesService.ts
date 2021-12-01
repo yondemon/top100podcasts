@@ -5,8 +5,8 @@ class ITunesService {
     return http.get('/us/rss/toppodcasts/limit=100/genre=1310/json');
   }
 
-  getPodcastInfo() {
-    return http.get('/lookup?id={podcastId}&media=podcast&entity=podcastEpisode&limit=100');
+  getPodcastInfo(podcastId: string) {
+    return http.get(`/lookup?id=${podcastId}&media=podcast&entity=podcastEpisode&limit=100`);
   }
 }
 

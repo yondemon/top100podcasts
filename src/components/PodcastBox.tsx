@@ -17,7 +17,6 @@ function PodcastBox(props: PodcastBoxProps) {
     text-align:center;
     height: 100%;
   `
-
   const Image = styled.img`
     margin: -30px auto 0;
     display: block;
@@ -27,6 +26,9 @@ function PodcastBox(props: PodcastBoxProps) {
   const Title = styled.h1`
     font-size: 1rem;
     text-transform: uppercase;
+    text-overflow: ellipsis;
+    max-height: 2.4rem;
+    overflow: hidden;
   `
   const Text = styled.p`
     color: #777;

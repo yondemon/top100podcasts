@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import styled from "styled-components";
 
 import './App.css';
 
 import ITunesService from './services/ITunesService';
-import PodcastBox from './components/PodcastBox';
+import ListView from './view/ListView';
+import PodcastView from './view/PodcastView';
 
 function App() {
   const [podcasts, setPodcasts] = useState<any[]>([]);
@@ -13,20 +15,6 @@ function App() {
     padding: 0.2rem 1rem;
     border-bottom: 1px solid #777;
   `;
-
-  const ListWrapper = styled.div`
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    width: 100%;
-  `
-  const ListItem = styled.div`
-    display: flex;
-    flex-direction: column;
-    flex: 1 0 21%;
-    max-width: 25%;
-    justify-content: stretch;
-  `
 
   useEffect(() => {
     const fetchPodcasts = async () => {
@@ -44,21 +32,12 @@ function App() {
         Podcaster
       </Header>
       <div>
-        {podcasts && podcasts.length > 0 && (
-          <ListWrapper>
-            {podcasts.map( (item) => {
-
-              return (
-                <ListItem>
-                  <PodcastBox
-                    title={item['im:name'].label}
-                    img={item['im:image'][0].label}
-                    author={item['im:artist'].label} />
-                </ListItem>
-              );
-            })}
-          </ListWrapper>
-        )}
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<ListView podcasts={podcasts} />} />
+            <Route path="/podcast/:podcastId" element={<PodcastView />} />
+          </Routes>
+        </BrowserRouter>
       </div>
     </div>
   );
