@@ -29,9 +29,19 @@ const Box = styled.div`
   padding: 1rem;
   text-align:center;
 `;
+const Count = styled.h2`
+  text-align: left;
+  margin: 0;
+  font-size: 1.2rem;
+`;
 
-function PodcastView () {
+interface PodcastViewProps {
+  setLoading: (loading: boolean) => void;
+}
+
+function PodcastView (props: PodcastViewProps) {
   const { podcastId } = useParams();
+  const { setLoading } = props;
 
   const [podcast, setPodcast] = useState<any>(undefined);
   const [count, setCount] = useState<any>(undefined);
@@ -40,8 +50,10 @@ function PodcastView () {
   useEffect(() => {
     const fetchPodcast = async () => {
       if(podcastId !== undefined){
+        setLoading(true);
         const result = await ITunesService.getPodcastInfo( podcastId );
-    
+        setLoading(false);
+
         const epidodesResults = result.data.results;
 
         setCount(result.data.resultCount);
@@ -53,7 +65,7 @@ function PodcastView () {
       }
     };  
     fetchPodcast();
-  }, [podcastId]);
+  }, [podcastId, setLoading]);
 
   return (
     <Layout>
@@ -72,9 +84,11 @@ function PodcastView () {
           <Route path="" element={(
             <>
               <Box>
-                {podcastEpisodes && (
-                  <>Episodes: {count}</>
-                )}
+                <Count>
+                  {podcastEpisodes && (
+                    <>Episodes: {count}</>
+                  )}
+                </Count>
               </Box>
               <Box>
                 {podcastEpisodes && (

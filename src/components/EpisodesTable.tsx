@@ -30,7 +30,7 @@ const TableRow = styled.tr`
     padding: 0.5rem;
     height: 1.5rem;
   }
-  &:nth-child(even) {
+  &:nth-child(odd) {
     background-color: #EEE;
     &:hover {
       background-color: #DDD;
