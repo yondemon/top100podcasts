@@ -53,23 +53,24 @@ function PodcastView (props: PodcastViewProps) {
     const fetchPodcast = async () => {
       if(podcastId !== undefined){
         setLoading(true);
-        const result = await ITunesService.getPodcastInfo( podcastId );
+        const podcastInfo = await ITunesService.getPodcastInfo( podcastId );
         setLoading(false);
 
-        const epidodesResults = result.data.results;
+        const epidodesResults = podcastInfo.results;
+                
+        if(epidodesResults !== undefined){
+          setCount(podcastInfo.resultCount);
+          setPodcastEpisodes(epidodesResults.filter(
+            (episode: any) => episode.kind === 'podcast-episode')
+          );
+          setPodcast(epidodesResults.find(((episode: any) => episode.kind === 'podcast')));
 
-        setCount(result.data.resultCount);
-        setPodcastEpisodes(epidodesResults.filter(
-          (episode: any) => episode.kind === 'podcast-episode')
-        );
-        setPodcast(epidodesResults.find(((episode: any) => episode.kind === 'podcast')));
-
-        const podcastFromFeed = podcasts.find( (pod) => pod.id.attributes['im:id'] === podcastId);
-        if( podcastFromFeed !== undefined){
-          console.log(podcastFromFeed);
-          setDescription(podcastFromFeed.summary.label);
-        } else {
-          setDescription(undefined);
+          const podcastFromFeed = podcasts.find( (pod) => pod.id.attributes['im:id'] === podcastId);
+          if( podcastFromFeed !== undefined){
+            setDescription(podcastFromFeed.summary.label);
+          } else {
+            setDescription(undefined);
+          }
         }
 
       }
