@@ -3,7 +3,6 @@ import { setupCache } from "axios-cache-adapter";
 
 const cache = setupCache({
   maxAge: 24 * 60 * 60 * 1000,
-  debug: true,
   exclude: {
     query: false
   },
