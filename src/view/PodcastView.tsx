@@ -56,6 +56,15 @@ function PodcastView (props: PodcastViewProps) {
 
         const podcastFromFeed = podcasts.find( (pod) => pod.id.attributes['im:id'] === podcastId);
         if( podcastFromFeed !== undefined){
+          console.log(podcastFromFeed);
+
+          if(!podcast){
+            setPodcast({
+              'collectionName': podcastFromFeed['im:name'].label,
+              'artworkUrl100': podcastFromFeed['im:image'][0].label,
+              'artistName': podcastFromFeed['im:artist'].label
+            })
+          }
           setDescription(podcastFromFeed.summary.label);
         } else {
           setDescription(undefined);
