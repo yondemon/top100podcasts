@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import styled from 'styled-components';
-
+import HTMLReactParser from 'html-react-parser';
 
 const Box = styled.div`
   border: 1px solid #eee;
@@ -36,7 +36,7 @@ function PodcastEpisode (props: PodcastEpisodeProps) {
     if( episodeId !== undefined && episodes !== undefined){
       setEpisode(episodes.find((item) => {
         return episodeId === item.trackId.toString();
-      }));
+      }));     
     } else {
       setEpisode(undefined);
     }
@@ -48,7 +48,7 @@ function PodcastEpisode (props: PodcastEpisodeProps) {
         <>
           <Title>{episode.trackName}</Title>
           <Description>
-            <div dangerouslySetInnerHTML={{__html: episode.description }} />
+            {HTMLReactParser(episode.description)}
           </Description>
           <Player src={episode.episodeUrl} controls />
         </>

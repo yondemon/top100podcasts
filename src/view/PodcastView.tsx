@@ -53,8 +53,16 @@ function PodcastView (props: PodcastViewProps) {
   useEffect(() => {
     const fetchPodcast = async () => {
       if(podcastId !== undefined){
+
+        const podcastFromFeed = podcasts.find( (pod) => pod.id.attributes['im:id'] === podcastId);
+        if( podcastFromFeed !== undefined){
+          setDescription(podcastFromFeed.summary.label);
+        } else {
+          setDescription(undefined);
+        }
+
         setLoading(true);
-        const podcastInfo = await ITunesService.getPodcastInfo( podcastId );
+        const podcastInfo = await new ITunesService().getPodcastInfo( podcastId );
         setLoading(false);
 
         const epidodesResults = podcastInfo.results;
@@ -66,12 +74,6 @@ function PodcastView (props: PodcastViewProps) {
           );
           setPodcast(epidodesResults.find(((episode: any) => episode.kind === 'podcast')));
 
-          const podcastFromFeed = podcasts.find( (pod) => pod.id.attributes['im:id'] === podcastId);
-          if( podcastFromFeed !== undefined){
-            setDescription(podcastFromFeed.summary.label);
-          } else {
-            setDescription(undefined);
-          }
         }
 
       }

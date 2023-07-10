@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Loader from 'react-loader-spinner';
+import { ThreeDots } from 'react-loader-spinner';
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import styled from "styled-components";
 
@@ -25,9 +25,9 @@ function App() {
   useEffect(() => {
     const fetchPodcasts = async () => {
       setLoading(true);
-      const result = await ITunesService.getTop100();
+      const data = await new ITunesService().getTop100();
       setLoading(false);
-      setPodcasts(result.data.feed.entry);
+      setPodcasts(data);
     };
 
     fetchPodcasts();  
@@ -39,7 +39,7 @@ function App() {
         <Header>
           <Link to="/">Podcaster</Link>
           { loading && (
-            <Loader type="ThreeDots" color="#61dafb" height={24} width={24}/>
+            <ThreeDots color="#61dafb" height={24} width={24}/>
           )}
         </Header>
         <div>
