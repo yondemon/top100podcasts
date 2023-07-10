@@ -56,15 +56,12 @@ function PodcastView (props: PodcastViewProps) {
 
         const podcastFromFeed = podcasts.find( (pod) => pod.id.attributes['im:id'] === podcastId);
         if( podcastFromFeed !== undefined){
-          console.log(podcastFromFeed);
-
-          if(!podcast){
-            setPodcast({
-              'collectionName': podcastFromFeed['im:name'].label,
-              'artworkUrl100': podcastFromFeed['im:image'][0].label,
-              'artistName': podcastFromFeed['im:artist'].label
-            })
-          }
+          setPodcast((prev: any) => ({
+            ...prev,
+            'collectionName': podcastFromFeed['im:name'].label,
+            'artworkUrl100': podcastFromFeed['im:image'][0].label,
+            'artistName': podcastFromFeed['im:artist'].label
+          }))
           setDescription(podcastFromFeed.summary.label);
         } else {
           setDescription(undefined);
@@ -74,21 +71,24 @@ function PodcastView (props: PodcastViewProps) {
         const podcastInfo = await new ITunesService().getPodcastInfo( podcastId );
         setLoading(false);
 
-        const epidodesResults = podcastInfo.results;
+        const episodesResults = podcastInfo.results;
                 
-        if(epidodesResults !== undefined){
+        if(episodesResults !== undefined){
           setCount(podcastInfo.resultCount);
-          setPodcastEpisodes(epidodesResults.filter(
+          setPodcastEpisodes(episodesResults.filter(
             (episode: any) => episode.kind === 'podcast-episode')
           );
-          setPodcast(epidodesResults.find(((episode: any) => episode.kind === 'podcast')));
-
+          setPodcast((prev: any) => {
+            return {
+              ...prev,
+              ...episodesResults.find(((episode: any) => episode.kind === 'podcast'))
+            };
+          });
         }
-
       }
     };  
     fetchPodcast();
-  }, [podcastId, podcasts, setLoading]);
+  },[podcastId, podcasts, setLoading]);
 
   return (
     <Layout>
