@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Route, Routes, useParams } from "react-router-dom";
+import { Route, Routes, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import ITunesService from '../services/ITunesService';
@@ -41,7 +41,8 @@ interface PodcastViewProps {
 }
 
 function PodcastView (props: PodcastViewProps) {
-  const { podcastId } = useParams();
+  const params = useParams();
+  const { podcastId } = params || {};
   const { podcasts, setLoading } = props;
 
   const [podcast, setPodcast] = useState<any>(undefined);

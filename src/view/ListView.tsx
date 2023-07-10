@@ -45,7 +45,7 @@ interface ListViewProps {
   podcasts: any[];
 }
 
-function ListView (props: ListViewProps) {
+export function ListView (props: ListViewProps) {
   const { podcasts } = props;
   const [filteredPodcasts, setFilteredPodcasts] = useState(podcasts);
   const [searching, setSearching] = useState("");
