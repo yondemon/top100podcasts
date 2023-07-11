@@ -25,9 +25,13 @@ function App() {
   useEffect(() => {
     const fetchPodcasts = async () => {
       setLoading(true);
-      const data = await new ITunesService().getTop100();
-      setLoading(false);
-      setPodcasts(data);
+      try {
+        const data = await new ITunesService().getTop100();
+        setPodcasts(data);
+      } catch(err: any) {
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchPodcasts();  

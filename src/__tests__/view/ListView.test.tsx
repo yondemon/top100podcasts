@@ -17,16 +17,15 @@ const wrapComponent = () => {
       },
     ],
   };
-  // const history = createMemoryHistory();
 
-  const wrappedComponent = render(
+  const view = render(
       <ListView {...props}/>,
       {wrapper: MemoryRouter}
     );
 
   return {
     props,
-    wrappedComponent,
+    wrappedComponent: view,
   };
 };
 

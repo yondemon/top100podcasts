@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from "styled-components";
 
 import { beautifyDate, millisecondsToTime } from '../utils/time';
+import { PodcastEpisodeInterface } from '../interfaces/PodcastEpisode.interface';
 
 
 const Table = styled.table`
@@ -50,8 +51,8 @@ const TableCellDuration = styled.td`
   width: 4.5rem;
 `;
 
-interface EpisodesTableProps {
-  episodes: any[];
+export interface EpisodesTableProps {
+  episodes: Array<PodcastEpisodeInterface>;
 }
 
 function EpisodesTable (props: EpisodesTableProps) {

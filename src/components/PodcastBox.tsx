@@ -31,7 +31,7 @@ const Text = styled.p`
   font-size: 0.8rem
 `;
 
-interface PodcastBoxProps {
+export interface PodcastBoxProps {
   img: string;
   title: string;
   author: string;

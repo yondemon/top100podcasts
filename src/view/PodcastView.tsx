@@ -68,23 +68,27 @@ function PodcastView (props: PodcastViewProps) {
         }
 
         setLoading(true);
-        const podcastInfo = await new ITunesService().getPodcastInfo( podcastId );
-        setLoading(false);
+        try {
+          const podcastInfo = await new ITunesService().getPodcastInfo( podcastId );
 
-        const episodesResults = podcastInfo.results;
-                
-        if(episodesResults !== undefined){
-          setCount(podcastInfo.resultCount);
-          setPodcastEpisodes(episodesResults.filter(
-            (episode: any) => episode.kind === 'podcast-episode')
-          );
-          setPodcast((prev: any) => {
-            return {
-              ...prev,
-              ...episodesResults.find(((episode: any) => episode.kind === 'podcast'))
-            };
-          });
-        }
+          const episodesResults = podcastInfo.results;
+
+          if(episodesResults !== undefined){
+            setCount(podcastInfo.resultCount);
+            setPodcastEpisodes(episodesResults.filter(
+              (episode: any) => episode.kind === 'podcast-episode')
+            );
+            setPodcast((prev: any) => {
+              return {
+                ...prev,
+                ...episodesResults.find(((episode: any) => episode.kind === 'podcast'))
+              };
+            });
+          }
+          } catch(err: any) {
+        } finally {
+          setLoading(false);
+        }                
       }
     };  
     fetchPodcast();

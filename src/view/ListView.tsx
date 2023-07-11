@@ -42,7 +42,12 @@ const ListItem = styled.div`
 `;
 
 interface ListViewProps {
-  podcasts: any[];
+  podcasts: Array<{
+    id: { attributes: Record<string,string>};
+    'im:name': { label: string };
+    'im:artist': { label: string };
+    'im:image': { label: string }[];
+  }>;
 }
 
 export function ListView (props: ListViewProps) {
