@@ -2,10 +2,10 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import {MemoryRouter} from 'react-router-dom';
 
-import ListView from '../../view/ListView';
+import ListView, { ListViewProps } from '../../view/ListView';
 
 const wrapComponent = () => {
-  const props = {
+  const props: ListViewProps = {
     podcasts: [
       {
         id: {
@@ -14,6 +14,7 @@ const wrapComponent = () => {
         'im:name': { label: 'NAME' },
         'im:artist': { label: 'ARTIST' },
         'im:image': [{ label: '/' }],
+        summary: { label: 'SUMMARY' },
       },
     ],
   };

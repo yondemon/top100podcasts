@@ -58,6 +58,11 @@
     ],
     "transformIgnorePatterns": [
       "node_modules/(?!axios)/"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!<rootDir>/node_modules/",
+      "!src/**/*.(interface|d).ts"
     ]
   }
 }

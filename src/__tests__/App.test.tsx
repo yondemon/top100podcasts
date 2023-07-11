@@ -10,7 +10,7 @@ jest.mock('../services/ITunesService', () => ({
     // eslint-disable-next-line no-labels, no-unused-labels
     getTop100: jest.fn(() => Promise.resolve())
   })
-}))
+}));
 
 describe('App', () => {
   it('renders header link', () => {

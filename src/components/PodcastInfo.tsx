@@ -51,7 +51,7 @@ interface PodcastInfoProps {
   img: string;
   title: string;
   author: string;
-  description: string;
+  description?: string;
 }
 
 function PodcastInfo(props: PodcastInfoProps) {

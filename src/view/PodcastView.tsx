@@ -6,6 +6,7 @@ import ITunesService from '../services/ITunesService';
 import PodcastInfo from '../components/PodcastInfo';
 import EpisodesTable from '../components/EpisodesTable';
 import PodcastEpisode from '../components/PodcastEpisode';
+import { Podcast, PodcastFromFeedInterface } from '../interfaces/Podcast.interface';
 
 const Layout = styled.div`
   display:flex;
@@ -35,8 +36,8 @@ const Count = styled.h2`
   font-size: 1.2rem;
 `;
 
-interface PodcastViewProps {
-  podcasts: any[];
+export interface PodcastViewProps {
+  podcasts: PodcastFromFeedInterface[];
   setLoading: (loading: boolean) => void;
 }
 
@@ -45,10 +46,10 @@ function PodcastView (props: PodcastViewProps) {
   const { podcastId } = params || {};
   const { podcasts, setLoading } = props;
 
-  const [podcast, setPodcast] = useState<any>(undefined);
-  const [description, setDescription] = useState<any>(undefined);
-  const [count, setCount] = useState<any>(undefined);
-  const [podcastEpisodes, setPodcastEpisodes] = useState<any>(undefined);
+  const [podcast, setPodcast] = useState<Podcast|undefined>(undefined);
+  const [description, setDescription] = useState<string|undefined>(undefined);
+  const [count, setCount] = useState<string|undefined>(undefined);
+  const [podcastEpisodes, setPodcastEpisodes] = useState<any|undefined>(undefined);
 
   useEffect(() => {
     const fetchPodcast = async () => {
@@ -56,7 +57,7 @@ function PodcastView (props: PodcastViewProps) {
 
         const podcastFromFeed = podcasts.find( (pod) => pod.id.attributes['im:id'] === podcastId);
         if( podcastFromFeed !== undefined){
-          setPodcast((prev: any) => ({
+          setPodcast((prev?: Podcast) => ({
             ...prev,
             'collectionName': podcastFromFeed['im:name'].label,
             'artworkUrl100': podcastFromFeed['im:image'][0].label,

@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 import PodcastBox from '../components/PodcastBox';
 import { containsTextI } from '../utils/text';
+import { PodcastFromFeedInterface } from '../interfaces/Podcast.interface';
 
 const SearchBar = styled.div`
   display: flex;
@@ -41,13 +42,8 @@ const ListItem = styled.div`
   justify-content: stretch;
 `;
 
-interface ListViewProps {
-  podcasts: Array<{
-    id: { attributes: Record<string,string>};
-    'im:name': { label: string };
-    'im:artist': { label: string };
-    'im:image': { label: string }[];
-  }>;
+export interface ListViewProps {
+  podcasts: Array<PodcastFromFeedInterface>;
 }
 
 export function ListView (props: ListViewProps) {
