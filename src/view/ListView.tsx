@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import PodcastBox from '../components/PodcastBox';
 import { containsTextI } from '../utils/text';
-import { PodcastFromFeedInterface } from '../interfaces/Podcast.interface';
+import { PodcastFromFeedNormalized } from '../interfaces/Podcast.interface';
 import SearchBar from '../components/SearchBar';
 
 const ListWrapper = styled.div`
@@ -21,7 +21,7 @@ const ListItem = styled.div`
 `;
 
 export interface ListViewProps {
-  podcasts: Array<PodcastFromFeedInterface>;
+  podcasts: Array<PodcastFromFeedNormalized>;
 }
 
 export function ListView (props: ListViewProps) {
@@ -33,12 +33,12 @@ export function ListView (props: ListViewProps) {
     filterPodcast(searching, podcasts);
   }, [searching, podcasts]);
 
-  const filterPodcast = (searching: string, podcasts: any[]) => {
+  const filterPodcast = (searching: string, podcasts: PodcastFromFeedNormalized[]) => {
     if (searching.length > 0) {
       setFilteredPodcasts(podcasts.filter( 
         (item) => {
-          return containsTextI(item['im:name'].label, searching) 
-            || containsTextI(item['im:artist'].label, searching);
+          return containsTextI(item.title, searching) 
+            || containsTextI(item.author, searching);
         }
       ));
     } else {
@@ -54,12 +54,12 @@ export function ListView (props: ListViewProps) {
           {filteredPodcasts.map( (item) => {
 
             return (
-              <ListItem key={item.id.attributes['im:id']}>
-                <Link to={`/podcast/${item.id.attributes['im:id']}`}>
+              <ListItem key={item.id}>
+                <Link to={`/podcast/${item.id}`}>
                   <PodcastBox
-                    title={item['im:name'].label}
-                    img={item['im:image'][0].label}
-                    author={item['im:artist'].label} />
+                    title={item.title}
+                    img={item.img}
+                    author={item.author} />
                 </Link>
               </ListItem>
             );

@@ -11,3 +11,11 @@ export interface PodcastFromFeedInterface {
   'im:image': { label: string }[];
   summary: { label: string };
 }
+
+export interface PodcastFromFeedNormalized {
+  id: string;
+  title: string;
+  img: string;
+  author: string;
+  summary: string;
+}

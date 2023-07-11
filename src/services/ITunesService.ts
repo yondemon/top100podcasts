@@ -1,9 +1,11 @@
 import http from "../http-common";
+import { PodcastFromFeedInterface, PodcastFromFeedNormalized } from "../interfaces/Podcast.interface";
 
 interface cachedData {
   expires: null | number;
-  data: []
+  data: any[]
 };
+
 
 export default class ITunesService {
   private cacheTime = 24 * 60 * 60 * 1000;
@@ -13,15 +15,24 @@ export default class ITunesService {
   };
   private podcasts: Record<string,cachedData> = {};
 
-  async getTop100(): Promise<Array<Record<string,any>>> {
+  async getTop100(): Promise<Array<PodcastFromFeedNormalized>> {
     const localStorageTop100CacheKey = 'top100';
 
     this.top100 = JSON.parse(localStorage.getItem(localStorageTop100CacheKey) || "{}");
 
     if(!this.top100.expires || this.top100.expires < Date.now() ){
       const result = await http.get('https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json');
+
+      const data: PodcastFromFeedNormalized[] = result.data.feed.entry.map((item: PodcastFromFeedInterface) => ({
+        id: item.id.attributes['im:id'],
+        title: item["im:name"].label,
+        img: item["im:image"][0].label,
+        author: item['im:artist'].label,
+        summary: item.summary.label
+      }))
+      
       this.top100 = {
-        data: result.data.feed.entry,
+        data,
         expires: Date.now() + this.cacheTime
       };
 

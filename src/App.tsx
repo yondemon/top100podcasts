@@ -8,6 +8,7 @@ import './App.css';
 import ITunesService from './services/ITunesService';
 import ListView from './view/ListView';
 import PodcastView from './view/PodcastView';
+import { PodcastFromFeedNormalized } from './interfaces/Podcast.interface';
 
 const Header = styled.header`
   padding: 0.5rem 1rem;
@@ -19,7 +20,7 @@ const Header = styled.header`
 `;
 
 function App() {
-  const [podcasts, setPodcasts] = useState<any[]>([]);
+  const [podcasts, setPodcasts] = useState<PodcastFromFeedNormalized[]>([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
