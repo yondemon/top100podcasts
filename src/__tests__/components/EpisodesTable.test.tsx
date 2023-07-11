@@ -16,7 +16,6 @@ const wrapComponent = () => {
       },
     ],
   };
-  // const history = createMemoryHistory();
 
   const view = render(
       <EpisodesTable {...props}/>,

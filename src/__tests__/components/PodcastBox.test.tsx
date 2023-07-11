@@ -9,7 +9,6 @@ const wrapComponent = () => {
     title: 'TITLE',
     author: 'AUTHOR'
   };
-  // const history = createMemoryHistory();
 
   const view = render(
       <PodcastBox {...props}/>,
