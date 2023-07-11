@@ -5,30 +5,8 @@ import styled from "styled-components";
 import PodcastBox from '../components/PodcastBox';
 import { containsTextI } from '../utils/text';
 import { PodcastFromFeedInterface } from '../interfaces/Podcast.interface';
+import SearchBar from '../components/SearchBar';
 
-const SearchBar = styled.div`
-  display: flex;
-  width: 100%;
-  align-items: center; 
-  justify-content: flex-end;
-  margin: 0.5rem 0;
-`;
-const SearchCount = styled.div`
-  background-color: #06C;
-  color: #FFF;
-  border-radius: 0.2rem;
-  padding: 0.1rem 0.3rem;
-  margin: 0 0.5rem;
-  font-weigth: bold;
-  font-size: 0.9rem;
-`;
-const SearchInput = styled.input`
-  border: 1px solid #CCC;
-  border-radius: 0.2rem;
-  font-size: 1rem;
-  padding: 0.1rem;
-  margin-right: 1rem;
-`;
 const ListWrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -55,11 +33,6 @@ export function ListView (props: ListViewProps) {
     filterPodcast(searching, podcasts);
   }, [searching, podcasts]);
 
-  const handleSearch = (e: any) => {
-    const searching = e.target.value;
-    setSearching(searching);
-  }
-
   const filterPodcast = (searching: string, podcasts: any[]) => {
     if (searching.length > 0) {
       setFilteredPodcasts(podcasts.filter( 
@@ -75,18 +48,7 @@ export function ListView (props: ListViewProps) {
 
   return (
     <>
-      <SearchBar>
-        {podcasts && (  
-          <SearchCount>{filteredPodcasts.length}</SearchCount>
-        )}
-        <div>
-          <SearchInput
-            type="text"
-            placeholder="Filter podcasts..."
-            onChange={handleSearch}
-          />
-        </div>
-      </SearchBar>
+      <SearchBar count={filteredPodcasts.length} setSearching={setSearching}/>
       {filteredPodcasts && filteredPodcasts.length > 0 && (
         <ListWrapper>
           {filteredPodcasts.map( (item) => {
