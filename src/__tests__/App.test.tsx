@@ -6,10 +6,9 @@ import ITunesService from '../services/ITunesService';
 
 jest.mock('../services/ITunesService', () => ({
   __esModule: true,
-  default: jest.fn(() => {
-    // eslint-disable-next-line no-labels, no-unused-labels
+  default: jest.fn(() => ({
     getTop100: jest.fn(() => Promise.resolve())
-  })
+  }))
 }));
 
 describe('App', () => {

@@ -6,12 +6,12 @@ interface cachedData {
 };
 
 export default class ITunesService {
-  cacheTime = 24 * 60 * 60 * 1000;
-  top100: cachedData = {
+  private cacheTime = 24 * 60 * 60 * 1000;
+  private top100: cachedData = {
     expires: null,
     data: [],
   };
-  podcasts: Record<string,cachedData> = {};
+  private podcasts: Record<string,cachedData> = {};
 
   async getTop100(): Promise<Array<Record<string,any>>> {
     const localStorageTop100CacheKey = 'top100';
