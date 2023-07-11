@@ -8,13 +8,11 @@ const wrapComponent = () => {
   const props: ListViewProps = {
     podcasts: [
       {
-        id: {
-          attributes: { 'im:id': '0001' },
-        },
-        'im:name': { label: 'NAME' },
-        'im:artist': { label: 'ARTIST' },
-        'im:image': [{ label: '/' }],
-        summary: { label: 'SUMMARY' },
+        id: '0001',
+        title: 'NAME',
+        author: 'ARTIST',
+        img: '/',
+        summary: 'SUMMARY',
       },
     ],
   };

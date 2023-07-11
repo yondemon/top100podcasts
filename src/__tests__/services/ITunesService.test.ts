@@ -27,7 +27,7 @@ describe('ITunesService', () => {
     .mockReturnValue(Promise.resolve({
       status: 200,
       data: {
-        feed: { entry: {}}
+        feed: { entry: []}
       }
     }));
 
