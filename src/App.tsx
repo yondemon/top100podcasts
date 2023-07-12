@@ -3,6 +3,7 @@ import { ThreeDots } from 'react-loader-spinner';
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import styled from "styled-components";
 
+import { VscError } from 'react-icons/vsc';
 import './App.css';
 
 import ITunesService from './services/ITunesService';
@@ -22,14 +23,17 @@ const Header = styled.header`
 function App() {
   const [podcasts, setPodcasts] = useState<PodcastFromFeedNormalized[]>([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const fetchPodcasts = async () => {
+      setError(false);
       setLoading(true);
       try {
         const data = await new ITunesService().getTop100();
         setPodcasts(data);
       } catch(err: any) {
+        setError(true);
       } finally {
         setLoading(false);
       }
@@ -46,11 +50,14 @@ function App() {
           { loading && (
             <ThreeDots color="#61dafb" height={24} width={24}/>
           )}
+          { error && (
+            <VscError  color="#c50043" height={24} width={24} />
+          )}
         </Header>
         <div>
           <Routes>
             <Route path="/" element={<ListView podcasts={podcasts} />} />
-            <Route path="/podcast/:podcastId/*" element={<PodcastView podcasts={podcasts} setLoading={setLoading} />} />
+            <Route path="/podcast/:podcastId/*" element={<PodcastView podcasts={podcasts} setLoading={setLoading} setError={setError} />} />
           </Routes>
         </div>
       </div>

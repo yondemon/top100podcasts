@@ -38,13 +38,14 @@ const Count = styled.h2`
 
 export interface PodcastViewProps {
   podcasts: PodcastFromFeedNormalized[];
-  setLoading: (loading: boolean) => void;
+  setLoading: (isLoading: boolean) => void;
+  setError: (isError: boolean) => void;
 }
 
 function PodcastView (props: PodcastViewProps) {
   const params = useParams();
   const { podcastId } = params || {};
-  const { podcasts, setLoading } = props;
+  const { podcasts, setLoading, setError } = props;
 
   const [podcast, setPodcast] = useState<Podcast|undefined>(undefined);
   const [description, setDescription] = useState<string|undefined>(undefined);
@@ -68,13 +69,14 @@ function PodcastView (props: PodcastViewProps) {
           setDescription(undefined);
         }
 
+        setError(false);
         setLoading(true);
         try {
           const podcastInfo = await new ITunesService().getPodcastInfo( podcastId );
 
           const episodesResults = podcastInfo.results;
 
-          if(episodesResults !== undefined){
+          if(episodesResults !== undefined) {
             setCount(podcastInfo.resultCount);
             setPodcastEpisodes(episodesResults.filter(
               (episode: any) => episode.kind === 'podcast-episode')
@@ -86,14 +88,15 @@ function PodcastView (props: PodcastViewProps) {
               };
             });
           }
-          } catch(err: any) {
+        } catch(err: any) {
+          setError(true);
         } finally {
           setLoading(false);
         }                
       }
     };  
     fetchPodcast();
-  },[podcastId, podcasts, setLoading]);
+  },[podcastId, podcasts, setError, setLoading]);
 
   return (
     <Layout>

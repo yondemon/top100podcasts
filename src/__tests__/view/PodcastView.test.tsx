@@ -24,6 +24,7 @@ const wrapComponent = () => {
       },
     ],
     setLoading: jest.fn(),
+    setError: jest.fn(),
   };
 
   const view = render(
