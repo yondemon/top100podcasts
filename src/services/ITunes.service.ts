@@ -1,5 +1,5 @@
 import http from "../http-common";
-import { PodcastFromFeedInterface, PodcastFromFeedNormalized } from "../interfaces/Podcast.interface";
+import { PodcastFromFeed, PodcastFromFeedNormalized } from "../models/Podcast.model";
 
 interface cachedData {
   expires: null | number;
@@ -23,7 +23,7 @@ export default class ITunesService {
     if(!this.top100.expires || this.top100.expires < Date.now() ){
       const result = await http.get('https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json');
 
-      const data: PodcastFromFeedNormalized[] = result.data.feed.entry.map((item: PodcastFromFeedInterface) => ({
+      const data: PodcastFromFeedNormalized[] = result.data.feed.entry.map((item: PodcastFromFeed) => ({
         id: item.id.attributes['im:id'],
         title: item["im:name"].label,
         img: item["im:image"][0].label,

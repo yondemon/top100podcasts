@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 
 import PodcastView, { PodcastViewProps } from '../../view/PodcastView';
-import ITunesService from '../../services/ITunesService';
+import ITunesService from '../../services/ITunes.service';
 
 import ReactRouterDOM from "react-router-dom";
 
@@ -69,7 +69,7 @@ const mockPodcastInfo = {
     ],
 };
 
-jest.mock('../../services/ITunesService', () => ({
+jest.mock('../../services/ITunes.service', () => ({
   __esModule: true,
   default: jest.fn(() => ({
     getTop100: jest.fn(() => Promise.resolve()),

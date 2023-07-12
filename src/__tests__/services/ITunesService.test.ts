@@ -1,5 +1,5 @@
 import httpCommon from "../../http-common";
-import ITunesService from "../../services/ITunesService";
+import ITunesService from "../../services/ITunes.service";
 
 
 describe('ITunesService', () => {

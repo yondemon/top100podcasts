@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import PodcastBox from '../components/PodcastBox';
 import { containsTextI } from '../utils/text';
-import { PodcastFromFeedNormalized } from '../interfaces/Podcast.interface';
+import { PodcastFromFeedNormalized } from '../models/Podcast.model';
 import SearchBar from '../components/SearchBar';
 
 const ListWrapper = styled.div`

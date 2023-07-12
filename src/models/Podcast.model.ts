@@ -4,7 +4,7 @@ export interface Podcast {
   artistName: string;
 }
 
-export interface PodcastFromFeedInterface {
+export interface PodcastFromFeed {
   id: { attributes: Record<string,string>};
   'im:name': { label: string };
   'im:artist': { label: string };

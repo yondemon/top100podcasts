@@ -6,10 +6,10 @@ import styled from "styled-components";
 import { VscError } from 'react-icons/vsc';
 import './App.css';
 
-import ITunesService from './services/ITunesService';
+import ITunesService from './services/ITunes.service';
 import ListView from './view/ListView';
 import PodcastView from './view/PodcastView';
-import { PodcastFromFeedNormalized } from './interfaces/Podcast.interface';
+import { PodcastFromFeedNormalized } from './models/Podcast.model';
 
 const Header = styled.header`
   padding: 0.5rem 1rem;

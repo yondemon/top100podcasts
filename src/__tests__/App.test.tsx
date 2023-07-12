@@ -2,9 +2,9 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import App from '../App';
 
-import ITunesService from '../services/ITunesService';
+import ITunesService from '../services/ITunes.service';
 
-jest.mock('../services/ITunesService', () => ({
+jest.mock('../services/ITunes.service', () => ({
   __esModule: true,
   default: jest.fn(() => ({
     getTop100: jest.fn(() => Promise.resolve())

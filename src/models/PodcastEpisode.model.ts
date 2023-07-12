@@ -1,4 +1,4 @@
-export interface PodcastEpisodeInterface {
+export interface PodcastEpisode {
   trackId: string;
   trackName: string;
   releaseDate: string;

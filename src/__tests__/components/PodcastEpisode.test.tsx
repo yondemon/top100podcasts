@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import {MemoryRouter} from 'react-router-dom';
-import PodcastEpisode, { PodcastEpisodeProps } from '../../components/PodcastEpisode';
+import PodcastEpisodeBox, { PodcastEpisodeProps } from '../../components/PodcastEpisode';
 
 import ReactRouterDOM from "react-router-dom";
 
@@ -26,7 +26,7 @@ const props: PodcastEpisodeProps = {
 const wrapComponent = () => {
 
   const view = render(
-      <PodcastEpisode {...props}/>,
+      <PodcastEpisodeBox {...props}/>,
       {wrapper: MemoryRouter}
     );
 

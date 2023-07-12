@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Route, Routes, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-import ITunesService from '../services/ITunesService';
+import ITunesService from '../services/ITunes.service';
 import PodcastInfo from '../components/PodcastInfo';
 import EpisodesTable from '../components/EpisodesTable';
-import PodcastEpisode from '../components/PodcastEpisode';
-import { Podcast, PodcastFromFeedNormalized } from '../interfaces/Podcast.interface';
+import PodcastEpisodeBox from '../components/PodcastEpisode';
+import { Podcast, PodcastFromFeedNormalized } from '../models/Podcast.model';
 
 const Layout = styled.div`
   display:flex;
@@ -129,7 +129,7 @@ function PodcastView (props: PodcastViewProps) {
             </>
           )} />
           <Route path="episode/:episodeId" element={(
-              <PodcastEpisode episodes={podcastEpisodes} />
+              <PodcastEpisodeBox episodes={podcastEpisodes} />
             )} />
           </Routes>
       </div>

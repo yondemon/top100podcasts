@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import styled from 'styled-components';
 import HTMLReactParser from 'html-react-parser';
-import { PodcastEpisodeInterface } from '../interfaces/PodcastEpisode.interface';
+import { PodcastEpisodeI } from '../models/PodcastEpisode.model';
 
 const Box = styled.div`
   border: 1px solid #eee;
@@ -25,10 +25,10 @@ const Player = styled.audio`
 `;
 
 export interface PodcastEpisodeProps {
-  episodes: Array<PodcastEpisodeInterface>;
+  episodes: Array<PodcastEpisodeI>;
 }
 
-function PodcastEpisode (props: PodcastEpisodeProps) {
+function PodcastEpisodeBox (props: PodcastEpisodeProps) {
   const { episodes } = props;
   const { episodeId } = useParams();
   const [episode, setEpisode] = useState<any>(undefined);
@@ -58,4 +58,4 @@ function PodcastEpisode (props: PodcastEpisodeProps) {
   )
 }
 
-export default PodcastEpisode;
+export default PodcastEpisodeBox;
