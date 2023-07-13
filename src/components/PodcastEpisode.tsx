@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import styled from 'styled-components';
 import HTMLReactParser from 'html-react-parser';
-import { PodcastEpisodeI } from '../models/PodcastEpisode.model';
+import { PodcastEpisode } from '../models/PodcastEpisode.model';
 
 const Box = styled.div`
   border: 1px solid #eee;
@@ -25,7 +25,7 @@ const Player = styled.audio`
 `;
 
 export interface PodcastEpisodeProps {
-  episodes: Array<PodcastEpisodeI>;
+  episodes: Array<PodcastEpisode>;
 }
 
 function PodcastEpisodeBox (props: PodcastEpisodeProps) {

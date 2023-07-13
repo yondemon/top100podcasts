@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from "styled-components";
 
 import { beautifyDate, millisecondsToTime } from '../utils/time';
-import { PodcastEpisodeI } from '../models/PodcastEpisode.model';
+import { PodcastEpisode } from '../models/PodcastEpisode.model';
 
 
 const Table = styled.table`
@@ -52,7 +52,7 @@ const TableCellDuration = styled.td`
 `;
 
 export interface EpisodesTableProps {
-  episodes: Array<PodcastEpisodeI>;
+  episodes: Array<PodcastEpisode>;
 }
 
 function EpisodesTable (props: EpisodesTableProps) {
